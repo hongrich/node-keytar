@@ -30,7 +30,7 @@
   ],
   "types": "./keytar.d.ts",
   "scripts": {
-    "install": "prebuild-install --build-from-source || node-gyp rebuild",
+    "install": "node-gyp rebuild",
     "lint": "npm run cpplint",
     "cpplint": "node-cpplint --filters legal-copyright,build-include,build-namespaces src/*.cc",
     "test": "npm run lint && npm build . && mocha --require babel-core/register spec/",
@@ -52,7 +52,6 @@
     "prebuild": "^8.1.2"
   },
   "dependencies": {
-    "nan": "2.12.1",
-    "prebuild-install": "5.2.4"
+    "nan": "2.12.1"
   }
 }
