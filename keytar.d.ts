@@ -49,3 +49,32 @@ export declare function findPassword(service: string): Promise<string | null>;
  * @returns A promise for the array of found credentials.
  */
 export declare function findCredentials(service: string): Promise<Array<{ account: string, password: string}>>;
+
+/**
+ * Get the stored password for the service and account synchronously.
+ *
+ * @param service The string service name.
+ * @param account The string account name.
+ *
+ * @returns The password string or null if account is not found.
+ */
+export declare function getPasswordSync(service: string, account: string): string | null;
+
+/**
+ * Add the password for the service and account to the keychain synchronously.
+ *
+ * @param service The string service name.
+ * @param account The string account name.
+ * @param password The string password.
+ */
+export declare function setPasswordSync(service: string, account: string, password: string): void;
+
+/**
+ * Delete the stored password for the service and account synchronously.
+ *
+ * @param service The string service name.
+ * @param account The string account name.
+ *
+ * @returns The deletion status. True on success.
+ */
+export declare function deletePasswordSync(service: string, account: string): boolean;

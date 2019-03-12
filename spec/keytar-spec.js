@@ -114,4 +114,43 @@ describe("keytar", function() {
       })
     })
   });
+
+  describe("setPasswordSync/getPasswordSync(service, account)", function() {
+    it("sets and returns the password for the service and account", function() {
+      keytar.setPasswordSync(service, account, password)
+      assert.equal(keytar.getPasswordSync(service, account), password)
+      keytar.setPasswordSync(service, account, password2)
+      assert.equal(keytar.getPasswordSync(service, account), password2)
+    })
+
+    it("returns null when the password was not found", function() {
+      assert.equal(keytar.getPasswordSync(service, account), null)
+    })
+
+    describe("Unicode support", function() {
+      const service = "se®vi\u00C7e"
+      const account = "shi\u0191\u2020ke\u00A5"
+      const password = "p\u00E5ssw\u00D8®\u2202"
+
+      it("handles unicode strings everywhere", function() {
+        keytar.setPasswordSync(service, account, password)
+        assert.equal(keytar.getPasswordSync(service, account), password)
+      })
+
+      afterEach(function() {
+        keytar.deletePasswordSync(service, account)
+      })
+    })
+  });
+
+  describe("deletePasswordSync(service, account)", function() {
+    it("returns true when the password was deleted", function() {
+      keytar.setPasswordSync(service, account, password)
+      assert.equal(keytar.deletePasswordSync(service, account), true)
+    })
+
+    it("returns false when the password didn't exist", function() {
+      assert.equal(keytar.deletePasswordSync(service, account), false)
+    })
+  });
 })
